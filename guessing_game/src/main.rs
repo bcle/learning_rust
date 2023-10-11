@@ -1,36 +1,12 @@
-#[derive(Debug)]
-struct Rectangle {
-    width: u32,
-    height: u32,
-}
-
-impl Rectangle {
-    fn area(self: &Self) -> u32 {
-        self.width * self.height
-    }
-
-    fn square(size: u32) -> Self {
-        Self {
-            width: size,
-            height: size,
-        }
-    }
-}
-
 fn main() {
-    let rect1 = Rectangle {
-        width: 30,
-        height: 50,
-    };
+    use std::collections::HashMap;
 
-    let sq1 = Rectangle::square(5);
+    let field_name = String::from("Favorite color");
+    let field_value = String::from("Blue");
 
-    println!(
-        "The area of the rectangle is {} square pixels.",
-        rect1.area()
-    );
-    println!(
-        "The area of the square is {} square pixels.",
-        sq1.area()
-    );
+    let mut map = HashMap::new();
+    map.insert(&field_name, field_value);
+    println!("{}", field_name)
+    // field_name and field_value are invalid at this point, try using them and
+    // see what compiler error you get!
 }

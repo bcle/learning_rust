@@ -1,6 +1,13 @@
+struct User {
+    name: String,
+    age: i32,
+}
+
+
 
 fn main() {
-    let s1 = String::from("hello");
-    let s2 = s1;
-    println!("{}, world!", s1);
+    let u1 = User {name: String::from("John"), age: 15};
+    let u2 = User {name: String::from("Ben"), ..u1};
+    println!("User name and age: {} {}", u1.name, u1.age);
+    println!("User name and age: {} {}", u2.name, u2.age);
 }

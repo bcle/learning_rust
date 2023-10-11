@@ -1,12 +1,19 @@
+use std::fs::File;
+use std::io::ErrorKind;
+
 fn main() {
-    use std::collections::HashMap;
+    let greeting_file_result = File::open("hello.txt");
 
-    let field_name = String::from("Favorite color");
-    let field_value = String::from("Blue");
-
-    let mut map = HashMap::new();
-    map.insert(&field_name, field_value);
-    println!("{}", field_name)
-    // field_name and field_value are invalid at this point, try using them and
-    // see what compiler error you get!
+    let greeting_file = match greeting_file_result {
+        Ok(file) => file,
+        Err(error) => match error.kind() {
+            ErrorKind::NotFound => match File::create("hello.txt") {
+                Ok(fc) => fc,
+                Err(e) => panic!("Problem creating the file: {:?}", e),
+            },
+            other_error => {
+                panic!("Problem opening the file: {:?}", other_error);
+            }
+        },
+    };
 }

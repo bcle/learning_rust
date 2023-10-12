@@ -1,20 +1,17 @@
-pub mod aggregator;
-pub mod pair;
-
-use aggregator::{Summary, Tweet};
-
 fn main() {
-    let tweet = Tweet {
-        username: String::from("horse_ebooks"),
-        content: String::from(
-            "of course, as you probably already know, people",
-        ),
-        reply: false,
-        retweet: false,
-    };
+    let string1 = String::from("abcd");
+    let result;
+    {
+        let string2 = "xyz0123";
+        result = longest(string1.as_str(), string2);
+    }
+    println!("The longest string is {}", result);
+}
 
-    println!("1 new tweet: {}", tweet.summarize());
-
-    aggregator::notify(&tweet)
-
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
 }

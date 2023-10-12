@@ -1,4 +1,5 @@
 pub mod aggregator;
+pub mod pair;
 
 use aggregator::{Summary, Tweet};
 

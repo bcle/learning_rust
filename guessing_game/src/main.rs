@@ -13,4 +13,7 @@ fn main() {
     };
 
     println!("1 new tweet: {}", tweet.summarize());
+
+    aggregator::notify(&tweet)
+
 }

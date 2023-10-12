@@ -1,16 +1,23 @@
-#[derive(Debug)]
-struct Rectangle {
-    width: u32,
-    height: u32,
-}
+use std::sync::{Arc, Mutex};
+use std::thread;
 
 fn main() {
-    let mut list = [
-        Rectangle { width: 10, height: 1 },
-        Rectangle { width: 3, height: 5 },
-        Rectangle { width: 7, height: 12 },
-    ];
+    let counter = Arc::new(Mutex::new(0));
+    let mut handles = vec![];
 
-    list.sort_by_key(|r| r.width);
-    println!("{:#?}", list);
+    for _ in 0..10 {
+        let counter = Arc::clone(&counter);
+        let handle = thread::spawn(move || {
+            let mut num = counter.lock().unwrap();
+
+            *num += 1;
+        });
+        handles.push(handle);
+    }
+
+    for handle in handles {
+        handle.join().unwrap();
+    }
+
+    println!("Result: {}", *counter.lock().unwrap());
 }
